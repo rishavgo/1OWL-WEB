@@ -5,7 +5,7 @@ import Features from "./components/Features";
 import FeatureWithForm from "./components/FeatureWithForm";
 import TestimonialsWithFooter from "./components/TestimonialsWithFooter";
 import AboutUs from "./pages/AboutUs";
-import Product from "./pages/Product";
+import ProductSection from "./components/ProductSection";
 
 function App() {
   return (
@@ -20,12 +20,12 @@ function App() {
                 <HeroSection />
                 <Features />
                 <FeatureWithForm />
+                <ProductSection />
                 <TestimonialsWithFooter />
               </>
             }
           />
           <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/product" element={<Product />} />
         </Routes>
       </div>
     </Router>

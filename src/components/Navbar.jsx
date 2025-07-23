@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom"; // 👈 import Link from react-router-dom
+import { Link as ScrollLink } from "react-scroll";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -7,7 +8,7 @@ const Navbar = () => {
   return (
     <nav className="bg-[#0F172A] text-white px-6 py-4 relative font-inter">
       <div className="flex justify-between items-center">
-        {/* Centered Logo on Mobile */}
+        {/* Logo Center on Mobile */}
         <div className="md:hidden absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-2">
           <img
             src="/images/owl.png"
@@ -22,7 +23,7 @@ const Navbar = () => {
           </span>
         </div>
 
-        {/* Logo on Desktop */}
+        {/* Logo Left on Desktop */}
         <div className="hidden md:flex items-center space-x-2">
           <img
             src="/images/owl.png"
@@ -37,22 +38,36 @@ const Navbar = () => {
           </span>
         </div>
 
-        {/* Desktop Nav */}
+        {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6 ml-auto">
           <ul className="flex space-x-6 text-[16px] font-normal leading-6">
             <li className="hover:underline cursor-pointer">
-              <Link to="/product">+Product</Link>
+              <ScrollLink
+                to="product"
+                smooth={true}
+                duration={500}
+                offset={-80}
+              >
+                +Product
+              </ScrollLink>
             </li>
             <li className="hover:underline cursor-pointer">
-              <Link to="/about-us">About Us</Link>
+              <RouterLink to="/about-us">About Us</RouterLink> {/* 👈 goes to AboutUs page */}
             </li>
           </ul>
-          <button className="ml-4 bg-[#D48A45] text-white px-5 py-2 rounded text-[14px] font-bold leading-[20px] hover:bg-[#c97937] transition">
-            Let's Started
-          </button>
+          <ScrollLink
+            to="form"
+            smooth={true}
+            duration={500}
+            offset={-80}
+          >
+            <button className="ml-4 bg-[#D48A45] text-white px-5 py-2 rounded text-[14px] font-bold leading-[20px] hover:bg-[#c97937] transition">
+              Let's Started
+            </button>
+          </ScrollLink>
         </div>
 
-        {/* Mobile Menu Icon */}
+        {/* Mobile Menu Button */}
         <div
           className="md:hidden ml-auto z-20"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -65,18 +80,36 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Nav Links */}
+      {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden mt-4 bg-[#0F172A] text-center space-y-4 py-4 rounded shadow-lg">
           <div className="text-[16px] font-normal leading-6 hover:underline cursor-pointer">
-            <Link to="/product" onClick={() => setMenuOpen(false)}>Product</Link>
+            <ScrollLink
+              to="product"
+              smooth={true}
+              duration={500}
+              offset={-80}
+              onClick={() => setMenuOpen(false)}
+            >
+              +Product
+            </ScrollLink>
           </div>
           <div className="text-[16px] font-normal leading-6 hover:underline cursor-pointer">
-            <Link to="/about-us" onClick={() => setMenuOpen(false)}>About Us</Link>
+            <RouterLink to="/about-us" onClick={() => setMenuOpen(false)}> {/* 👈 goes to AboutUs page */}
+              About Us
+            </RouterLink>
           </div>
-          <button className="bg-[#D48A45] text-white px-5 py-2 rounded text-[14px] font-bold leading-[20px] hover:bg-[#c97937] transition">
-            Get Started
-          </button>
+          <ScrollLink
+            to="form"
+            smooth={true}
+            duration={500}
+            offset={-80}
+            onClick={() => setMenuOpen(false)}
+          >
+            <button className="bg-[#D48A45] text-white px-5 py-2 rounded text-[14px] font-bold leading-[20px] hover:bg-[#c97937] transition">
+              Get Started
+            </button>
+          </ScrollLink>
         </div>
       )}
     </nav>
