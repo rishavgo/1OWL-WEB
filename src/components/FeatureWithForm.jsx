@@ -1,6 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 const FeatureWithForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    state: "",
+  });
+
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    const apiURL = "https://734e209d920b.ngrok-free.app/api/leads";
+
+    try {
+      const response = await axios.post(apiURL, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("API response:", response.data);
+      alert("✅ Lead submitted successfully!");
+      setFormData({ name: "", mobile: "", email: "", state: "" });
+    } catch (error) {
+      console.error("API error:", error.response || error.message);
+      alert("❌ Failed to submit lead. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <section
       id="form"
@@ -22,56 +61,74 @@ const FeatureWithForm = () => {
         </div>
 
         <div className="w-full md:w-1/2 flex justify-end mt-10 md:mt-0">
-          <form className="space-y-6 w-full max-w-md">
+          <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md">
+            {/* Name */}
             <div className="flex flex-col">
               <label className="mb-2 text-[14px] font-normal text-gray-700">
                 Name*
               </label>
               <input
                 type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
                 required
                 className="w-full h-[38px] px-[13px] py-[9px] border border-gray-300 rounded-[6px] text-black bg-white"
               />
             </div>
 
+            {/* Mobile */}
+            <div className="flex flex-col">
+              <label className="mb-2 text-[14px] font-normal text-gray-700">
+                Mobile*
+              </label>
+              <input
+                type="tel"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleChange}
+                required
+                className="w-full h-[38px] px-[13px] py-[9px] border border-gray-300 rounded-[6px] text-black bg-white"
+              />
+            </div>
+
+            {/* Email */}
             <div className="flex flex-col">
               <label className="mb-2 text-[14px] font-normal text-gray-700">
                 Email*
               </label>
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 required
                 className="w-full h-[38px] px-[13px] py-[9px] border border-gray-300 rounded-[6px] text-black bg-white"
               />
             </div>
 
-            <div className="flex flex-col">
-              <label className="mb-2 text-[14px] font-normal text-gray-700">
-                Mobile Number*
-              </label>
-              <input
-                type="tel"
-                required
-                className="w-full h-[38px] px-[13px] py-[9px] border border-gray-300 rounded-[6px] text-black bg-white"
-              />
-            </div>
-
+            {/* State */}
             <div className="flex flex-col">
               <label className="mb-2 text-[14px] font-normal text-gray-700">
                 State*
               </label>
               <input
                 type="text"
+                name="state"
+                value={formData.state}
+                onChange={handleChange}
                 required
                 className="w-full h-[38px] px-[13px] py-[9px] border border-gray-300 rounded-[6px] text-black bg-white"
               />
             </div>
 
+            {/* Submit */}
             <button
               type="submit"
+              disabled={submitting}
               className="bg-[#D48A45] text-white font-bold text-[14px] h-[37px] w-[114.22px] rounded-[8px] hover:brightness-110 transition-all duration-300"
             >
-              Submit
+              {submitting ? "Submitting..." : "Submit"}
             </button>
           </form>
         </div>
