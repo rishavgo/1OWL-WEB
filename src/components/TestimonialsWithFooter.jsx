@@ -31,29 +31,39 @@ const TestimonialsWithFooter = () => {
             Why Hotel Owners Love <span className="text-[#D48A45]">1OWL</span>
           </h3>
 
-          <div className="flex flex-col items-center gap-8">
+          {/* Desktop Layout */}
+          <div className="hidden md:grid grid-cols-2 gap-6 w-full max-w-6xl mx-auto">
             {/* Top 2 cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-6xl">
-              {testimonials.slice(0, 2).map((t, i) => (
-                <div
-                  key={i}
-                  className="bg-[#97A83A] bg-opacity-70 rounded-[16px] p-6 text-left shadow text-[24px] text-black leading-relaxed"
-                >
-                  “{t.quote}”
-                  <br />
-                  <span className="block mt-4 font-semibold text-[20px]">— {t.by}</span>
-                </div>
-              ))}
-            </div>
+            {testimonials.slice(0, 2).map((t, i) => (
+              <div
+                key={i}
+                className="bg-[#97A83A] bg-opacity-70 rounded-[16px] p-6 text-left text-[22px] text-black leading-relaxed shadow flex flex-col justify-between min-h-[200px] h-full"
+              >
+                <p className="mb-4">“{t.quote}”</p>
+                <span className="font-semibold text-[20px]">— {t.by}</span>
+              </div>
+            ))}
 
-            {/* Bottom 1 card */}
-            <div className="w-full max-w-[649px]">
-              <div className="bg-[#97A83A] bg-opacity-70 rounded-[16px] p-6 text-left shadow text-[24px] text-black leading-relaxed">
-                “{testimonials[2].quote}”
-                <br />
-                <span className="block mt-4 font-semibold text-[20px]">— {testimonials[2].by}</span>
+            {/* Full-width bottom card */}
+            <div className="col-span-2 flex justify-center">
+              <div className="bg-[#97A83A] bg-opacity-70 rounded-[16px] p-6 text-left text-[22px] text-black leading-relaxed shadow flex flex-col justify-between min-h-[200px] w-full max-w-[649px]">
+                <p className="mb-4">“{testimonials[2].quote}”</p>
+                <span className="font-semibold text-[20px]">— {testimonials[2].by}</span>
               </div>
             </div>
+          </div>
+
+          {/* Mobile/Tablet Layout */}
+          <div className="md:hidden flex flex-col gap-6 w-full max-w-2xl mx-auto">
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                className="bg-[#97A83A] bg-opacity-70 rounded-[16px] p-6 text-left text-[20px] text-black leading-relaxed shadow flex flex-col justify-between min-h-[200px] h-full"
+              >
+                <p className="mb-4">“{t.quote}”</p>
+                <span className="font-semibold text-[18px]">— {t.by}</span>
+              </div>
+            ))}
           </div>
         </section>
       </section>

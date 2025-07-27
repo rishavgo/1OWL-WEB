@@ -12,7 +12,7 @@ const FeatureWithForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [modal, setModal] = useState({
     show: false,
-    type: "", // "success" or "error"
+    type: "",
     message: "",
   });
 
@@ -32,7 +32,7 @@ const FeatureWithForm = () => {
     const apiURL = "http://localhost:5000/api/leads";
 
     try {
-      const response = await axios.post(apiURL, formData, {
+      await axios.post(apiURL, formData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -58,17 +58,15 @@ const FeatureWithForm = () => {
   };
 
   return (
-    <section
-      id="form"
-      className="bg-white pt-12 pb-16 md:pb-0 overflow-hidden font-inter"
-    >
-      <h2 className="text-[28px] md:text-[48px] font-medium leading-[36px] md:leading-[56px] text-black text-center mb-12 px-4 md:px-10">
-        We’re with you – <br className="md:hidden" />
-        from the first question <br className="md:hidden" />
-        to the first success
+    <section id="form" className="bg-white pt-12 pb-10 overflow-hidden font-inter">
+      {/* ✅ Responsive Heading */}
+      <h2 className="text-[22px] sm:text-[26px] md:text-[30px] lg:text-[40px] xl:text-[48px] font-medium text-black text-center mb-12 px-4 max-w-[90%] sm:max-w-[500px] md:max-w-[800px] lg:max-w-full mx-auto leading-tight whitespace-normal lg:whitespace-nowrap">
+        We’re with you – from the first question to the first success
       </h2>
 
+      {/* ✅ Layout Container */}
       <div className="flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto px-4 md:px-8">
+        {/* ✅ Image */}
         <div className="w-full md:w-1/2 flex justify-center lg:justify-start mt-10 md:mt-0">
           <img
             src="/images/feature-full.png"
@@ -77,6 +75,7 @@ const FeatureWithForm = () => {
           />
         </div>
 
+        {/* ✅ Form */}
         <div className="w-full md:w-1/2 flex justify-end mt-10 md:mt-0">
           <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md">
             {["name", "mobile", "email", "state"].map((field) => (
@@ -95,13 +94,16 @@ const FeatureWithForm = () => {
               </div>
             ))}
 
-            <button
-              type="submit"
-              disabled={submitting}
-              className="bg-[#D48A45] text-white font-bold text-[14px] h-[37px] w-[114.22px] rounded-[8px] hover:brightness-110 transition-all duration-300"
-            >
-              {submitting ? "Submitting..." : "Submit"}
-            </button>
+            {/* ✅ Submit Button */}
+            <div className="pt-4">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="bg-[#D48A45] text-white font-bold text-[14px] h-[37px] w-[114.22px] rounded-[8px] hover:brightness-110 transition-all duration-300"
+              >
+                {submitting ? "Submitting..." : "Submit"}
+              </button>
+            </div>
           </form>
         </div>
       </div>
